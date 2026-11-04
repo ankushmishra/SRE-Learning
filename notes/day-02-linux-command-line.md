@@ -1,45 +1,155 @@
 # Day 2 - Linux command line and log analysis
 
-## Objective
-Gain confidence using command line tools for filtering, counting, summarizing, and extracting meaningful data from logs.
+## Session goal
 
-## Commands to practice
+Use shell pipelines to inspect a web access log, count HTTP status codes, find
+frequently requested URLs, and save server errors to a separate file. This
+session uses a synthetic log created in the personal Ubuntu VM; do not use
+work or production logs.
+
+Suggested time: about 90 minutes, including the exercises and notes.
+
+## 1. Prepare a workspace
+
+Open Terminal in Ubuntu and run:
+
 ```bash
-grep -i "error" /var/log/syslog | head
-grep -E "404|500" access.log | head
-awk '{print $9}' access.log | sort | uniq -c | sort -nr | head
-cut -d ' ' -f 9 access.log | sort | uniq -c
-wc -l access.log
-cat access.log | grep 500 > errors.txt
+mkdir -p ~/sre-lab/day2
+cd ~/sre-lab/day2
+pwd
 ```
 
-## What SREs do with logs
-- Find failures and error spikes.
-- Count responses by status code.
-- Identify top requests and high-traffic endpoints.
-- Separate noise from real user impact.
+The final command should show a path ending in `/sre-lab/day2`. `mkdir -p`
+creates the folder if needed and does not complain if it already exists.
 
-## Typical analysis tasks
-1. Count requests by HTTP status code.
-2. Find the 5 most requested URLs.
-3. Save all 5xx requests to a file.
+## 2. Create a small synthetic web access log
 
-## Example thought process
-- `grep` filters matching lines.
-- `sort` organizes data.
-- `uniq -c` counts repeated values.
+Run this whole block in the Ubuntu terminal. The `EOF` marker must be on a
+line by itself:
+
+```bash
+cat > access.log <<'EOF'
+192.0.2.10 - - [04/Nov/2026:09:00:01 +0000] "GET / HTTP/1.1" 200 512
+192.0.2.11 - - [04/Nov/2026:09:00:02 +0000] "GET /products HTTP/1.1" 200 1024
+192.0.2.12 - - [04/Nov/2026:09:00:03 +0000] "GET /products HTTP/1.1" 200 1024
+192.0.2.13 - - [04/Nov/2026:09:00:04 +0000] "GET /health HTTP/1.1" 200 32
+192.0.2.14 - - [04/Nov/2026:09:00:05 +0000] "GET /login HTTP/1.1" 200 256
+192.0.2.15 - - [04/Nov/2026:09:00:06 +0000] "GET /products HTTP/1.1" 500 0
+192.0.2.16 - - [04/Nov/2026:09:00:07 +0000] "GET /api/items HTTP/1.1" 503 0
+192.0.2.17 - - [04/Nov/2026:09:00:08 +0000] "GET / HTTP/1.1" 200 512
+192.0.2.18 - - [04/Nov/2026:09:00:09 +0000] "GET /search?q=linux HTTP/1.1" 404 128
+192.0.2.19 - - [04/Nov/2026:09:00:10 +0000] "GET /products HTTP/1.1" 200 1024
+192.0.2.20 - - [04/Nov/2026:09:00:11 +0000] "GET /api/items HTTP/1.1" 200 768
+192.0.2.21 - - [04/Nov/2026:09:00:12 +0000] "GET /checkout HTTP/1.1" 502 0
+192.0.2.22 - - [04/Nov/2026:09:00:13 +0000] "GET /static/app.css HTTP/1.1" 304 0
+192.0.2.23 - - [04/Nov/2026:09:00:14 +0000] "GET /login HTTP/1.1" 401 64
+192.0.2.24 - - [04/Nov/2026:09:00:15 +0000] "GET /health HTTP/1.1" 200 32
+EOF
+```
+
+Confirm the file exists and inspect a few lines:
+
+```bash
+ls -l access.log
+head -n 3 access.log
+wc -l access.log
+```
+
+There should be 15 lines. Each line contains a request, a status code, and a
+response size. This is a simplified example of the common access-log layout.
+
+## 3. Understand the pipeline tools
+
+- `grep` filters lines matching a pattern.
+- `awk` reads fields; in this log `$7` is the request path and `$9` is the
+  HTTP status code.
+- `sort` groups identical values together when used before `uniq`.
+- `uniq -c` counts adjacent identical lines.
 - `wc -l` counts lines.
-- Redirection (`>`, `>>`) stores output for later analysis.
+- `>` writes command output to a file, replacing its previous contents.
+- `|` sends one command's output to the next command.
 
-## Exercise
-Create or download a sample access log, then answer:
-- How many requests were 200?
-- Which URL was most requested?
-- How many 5xx responses were present?
-- What was saved to `errors.txt`?
+Inspect the fields before combining commands:
 
-## Notes
-Write 3 things you learned in your own words:
+```bash
+awk '{print $7, $9}' access.log | head
+```
+
+The output should show a path followed by its status code for each displayed
+request.
+
+## 4. Count requests by HTTP status code
+
+```bash
+awk '{print $9}' access.log | sort | uniq -c | sort -nr
+```
+
+Expected counts: 9 responses with status `200`, and 1 each with `304`, `401`,
+`404`, `500`, `502`, and `503`. Tied rows may appear in either order.
+
+Read the pipeline from left to right: extract the status field, group matching
+codes, count each group, then sort by count with the largest first.
+
+## 5. Find the five most-requested URLs
+
+```bash
+awk '{print $7}' access.log | sort | uniq -c | sort -nr | head -n 5
+```
+
+`/products` appears 4 times. `/`, `/api/items`, `/health`, and `/login` each
+appear 2 times. Because of the tie, the order among those four paths can vary.
+`head -n 5` displays five rows, not necessarily five unique counts.
+
+## 6. Save all server-error responses
+
+HTTP status codes from 500 through 599 indicate server errors. Extract those
+complete log lines into `errors.txt`:
+
+```bash
+awk '$9 >= 500 && $9 < 600' access.log > errors.txt
+```
+
+Verify the result:
+
+```bash
+cat errors.txt
+wc -l errors.txt
+```
+
+There should be 3 lines: statuses `500`, `502`, and `503`. `cat` is suitable
+for this tiny file; for a large log, inspect only a small portion with `head`
+or `less`.
+
+## 7. Review and explain
+
+Run the analyses again without looking at the examples. Then explain in your
+own words:
+
+1. What does each `|` do in the status-count pipeline?
+2. Why does `sort` come before `uniq -c`?
+3. Which field contains the URL, and which contains the status?
+4. Why do we filter `500-599` instead of searching for the word `error`?
+5. What does `>` do if `errors.txt` already exists?
+
+## Optional stretch
+
+Find the total number of response bytes for each status code:
+
+```bash
+awk '{bytes[$9] += $10} END {for (code in bytes) print code, bytes[code]}' access.log | sort
+```
+
+Here `$10` is the response-size field in this simplified log. A production log
+may use a different format, so first inspect its format before assuming field
+positions.
+
+## Day 2 notes
+
+Record three things learned, one command that was confusing, and how you
+resolved it:
+
 1.
 2.
 3.
+
+Confusing command / resolution:
