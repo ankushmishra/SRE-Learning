@@ -3,6 +3,7 @@
 This folder contains daily technical notes for my SRE learning journey.
 
 ## Week 1
+- [Ubuntu Desktop installation in VirtualBox](./ubuntu-vm-installation.md)
 - [Day 1 - Linux fundamentals](./day-01-linux-foundations.md)
 - [Day 2 - Linux command line and log analysis](./day-02-linux-command-line.md)
 
