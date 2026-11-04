@@ -37,6 +37,12 @@ Build practical understanding of Linux, networking, scripting, databases, monito
 - Day 15: Production troubleshooting and postmortems
 
 ## Technical notes
+
+### Study notes
+- [Notes index](./notes/README.md)
+- [Day 1 - Linux fundamentals](./notes/day-01-linux-foundations.md)
+- [Day 2 - Linux command line and log analysis](./notes/day-02-linux-command-line.md)
+
 ### 1. Linux
 - Understand file system, permissions, process management, logs, and services.
 - Use `ls`, `ps`, `top`, `systemctl`, `journalctl`, `tail -f`, `grep`, and `awk` confidently.
