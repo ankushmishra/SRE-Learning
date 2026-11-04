@@ -11,32 +11,39 @@ Linux is the base layer of most production systems. SREs need to understand how 
 - Process: running instance of a program.
 - Daemon: background service such as SSH or web server.
 
-## Commands to practice
+## Practice: basic navigation commands
+
+Run these commands one by one in the terminal. After `less test.txt`, press
+`q` to return to the shell.
+
 ```bash
 pwd
 ls -la
-cd /tmp
+cd ~
 mkdir sre-lab
-touch notes.txt
-cp notes.txt notes-copy.txt
-mv notes-copy.txt renamed.txt
-rm renamed.txt
-cat /etc/os-release
-head -n 20 /etc/passwd
-tail -n 20 /var/log/syslog
-find / -maxdepth 2 -type f 2>/dev/null | head
-man ls
+cd sre-lab
+touch test.txt
+echo "Hello SRE" > test.txt
+cat test.txt
+less test.txt
+cp test.txt backup.txt
+mv backup.txt notes.txt
+find . -name "*.txt"
 history
 ```
+
+Expected result: `cat test.txt` prints `Hello SRE`, and `find` lists
+`./test.txt` and `./notes.txt`. The `>` operator writes to the file, replacing
+its contents if it already exists.
+
+If you repeat the exercise, `mkdir sre-lab` may report that the directory
+already exists. Continue with `cd ~/sre-lab`; the existing files can be reused.
 
 ## Questions to answer
 - What is the difference between a terminal and a shell?
 - What is the role of the kernel?
 - Why do permissions matter in production?
 - What happens when a process exits unexpectedly?
-
-## Exercise
-Inside a safe lab environment, create a folder, create a file, move it, and confirm it is present by listing the directory.
 
 ## Notes
 Write 3 things you learned in your own words:
