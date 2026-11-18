@@ -10,6 +10,9 @@ This folder contains daily technical notes for my SRE learning journey.
 - [Day 4 - Linux processes, networking, and basic monitoring](./day-04-linux-processes-networking-monitoring.md)
 - [Day 5 - Networking I: DNS, UDP, and TCP](./day-05-networking-dns-udp-tcp.md)
 
+## Integrated reference
+- [From Flask app to reliable service: Flask, MySQL, Docker, Kubernetes, and postmortems](./reference-flask-mysql-docker-kubernetes-postmortem.md)
+
 ## How to use these notes
 - Write summaries in your own words.
 - Include commands, expected output, and mistakes made.
