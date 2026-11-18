@@ -42,6 +42,7 @@ Build practical understanding of Linux, networking, scripting, databases, monito
 - [Notes index](./notes/README.md)
 - [Day 1 - Linux fundamentals](./notes/day-01-linux-foundations.md)
 - [Day 2 - Linux command line and log analysis](./notes/day-02-linux-command-line.md)
+- [Integrated reference - Flask, MySQL, Docker, Kubernetes, and postmortems](./notes/reference-flask-mysql-docker-kubernetes-postmortem.md)
 
 ### 1. Linux
 - Understand file system, permissions, process management, logs, and services.
