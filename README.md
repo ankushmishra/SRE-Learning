@@ -58,6 +58,22 @@ Build practical understanding of Linux, networking, scripting, databases, monito
 - [Day 14 - Containers and Docker](./notes/day-14-containers-docker.md)
 - [Day 15 - Kubernetes intro, failure drill, and postmortem](./notes/day-15-kubernetes-failure-drill-postmortem.md)
 - [Integrated reference - Flask, MySQL, Docker, Kubernetes, and postmortems](./notes/reference-flask-mysql-docker-kubernetes-postmortem.md)
+- [Days 16â€“30 overview and shared local lab](./notes/day-16-to-30-follow-on-overview.md)
+- [Day 16 - SLOs and user reliability](./notes/day-16-slos-and-user-reliability.md)
+- [Day 17 - Risk and error budgets](./notes/day-17-risk-error-budgets.md)
+- [Day 18 - Toil analysis](./notes/day-18-toil-analysis.md)
+- [Day 19 - Monitoring design](./notes/day-19-monitoring-design.md)
+- [Day 20 - Measurement and sampling](./notes/day-20-measurement-and-sampling.md)
+- [Day 21 - Safe probe automation](./notes/day-21-safe-probe-automation.md)
+- [Day 22 - Release and rollback](./notes/day-22-release-and-rollback.md)
+- [Day 23 - Actionable alerting](./notes/day-23-actionable-alerting.md)
+- [Day 24 - On-call runbook](./notes/day-24-oncall-runbook.md)
+- [Day 25 - Troubleshooting hypotheses](./notes/day-25-troubleshooting-hypotheses.md)
+- [Day 26 - Emergency response](./notes/day-26-emergency-response.md)
+- [Day 27 - Incident coordination](./notes/day-27-incident-coordination.md)
+- [Day 28 - Blameless postmortem](./notes/day-28-blameless-postmortem.md)
+- [Day 29 - Reliability test checklist](./notes/day-29-reliability-test-checklist.md)
+- [Day 30 - Capstone reliability drill](./notes/day-30-capstone-reliability-drill.md)
 
 ### 1. Linux
 - Understand file system, permissions, process management, logs, and services.
