@@ -21,20 +21,22 @@ Build practical understanding of Linux, networking, scripting, databases, monito
 - Day 1: SRE role + Linux basics
 - Day 2: Command line + log parsing
 - Day 3: Linux services + permissions + logs
-- Day 4: Git and GitHub workflows
+- Day 4: Linux processes, networking, and basic monitoring
 - Day 5: DNS and UDP/TCP
 - Day 6: HTTP, routing, recap
-- Day 7: Python and GitHub repo practice
 
-### Week 2: Programming, data, and system thinking
-- Day 8: Python and Flask
+### Week 2: Programming, data, monitoring, and system thinking
+- Day 7: Python concepts and log-analysis automation
+- Day 8: Python and Flask web apps
 - Day 9: Relational databases and MySQL
 - Day 10: NoSQL and queues
 - Day 11: Systems design
 - Day 12: Monitoring and observability
-- Day 13: Containers and Docker
-- Day 14: CI/CD and deployment basics
-- Day 15: Production troubleshooting and postmortems
+
+### Week 3: Security, containers, and failure practice
+- Day 13: Security fundamentals
+- Day 14: Containers and Docker
+- Day 15: Kubernetes, failure drill, and postmortem
 
 ## Technical notes
 
@@ -42,6 +44,19 @@ Build practical understanding of Linux, networking, scripting, databases, monito
 - [Notes index](./notes/README.md)
 - [Day 1 - Linux fundamentals](./notes/day-01-linux-foundations.md)
 - [Day 2 - Linux command line and log analysis](./notes/day-02-linux-command-line.md)
+- [Day 3 - Linux services, permissions, and logs](./notes/day-03-linux-services-permissions-logs.md)
+- [Day 4 - Linux processes, networking, and basic monitoring](./notes/day-04-linux-processes-networking-monitoring.md)
+- [Day 5 - Networking I: DNS, UDP, and TCP](./notes/day-05-networking-dns-udp-tcp.md)
+- [Day 6 - Networking II: HTTP, routing, and weekly recap](./notes/day-06-networking-http-routing.md)
+- [Day 7 - Python I: concepts and log analysis](./notes/day-07-python-log-analysis.md)
+- [Day 8 - Python II: web apps with Flask](./notes/day-08-python-flask-web-apps.md)
+- [Day 9 - Relational databases and MySQL](./notes/day-09-relational-databases-mysql.md)
+- [Day 10 - NoSQL, message queues, and big data concepts](./notes/day-10-nosql-queues-big-data.md)
+- [Day 11 - Systems design](./notes/day-11-systems-design.md)
+- [Day 12 - Metrics, monitoring, SLIs, and SLOs](./notes/day-12-metrics-monitoring-sli-slo.md)
+- [Day 13 - Security fundamentals](./notes/day-13-security-fundamentals.md)
+- [Day 14 - Containers and Docker](./notes/day-14-containers-docker.md)
+- [Day 15 - Kubernetes intro, failure drill, and postmortem](./notes/day-15-kubernetes-failure-drill-postmortem.md)
 - [Integrated reference - Flask, MySQL, Docker, Kubernetes, and postmortems](./notes/reference-flask-mysql-docker-kubernetes-postmortem.md)
 
 ### 1. Linux
@@ -96,3 +111,4 @@ git log --oneline
 5. Containerize a simple app and run it locally.
 
 This repository will grow with notes, scripts, and hands-on exercises as the learning progresses.
+
