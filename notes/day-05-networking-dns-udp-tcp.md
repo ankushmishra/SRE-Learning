@@ -233,6 +233,36 @@ Answer in your own words:
 7. Why does a failed `ping` not necessarily mean a service is unavailable?
 8. Which command showed the DNS answer, and which command showed local sockets?
 
+## 3.1 Suggested answers
+
+Use these to check your understanding after trying the questions yourself.
+
+1. **What problem does DNS solve?** DNS lets applications and people use
+   human-readable names while resolving them to network records, such as IP
+   addresses, needed to reach services.
+2. **Recursive resolver vs authoritative DNS server:** A recursive resolver
+   looks up an answer on the client's behalf, using its cache or querying other
+   DNS servers. An authoritative server holds the records for a domain and
+   provides the definitive answer for those records.
+3. **A vs AAAA:** An `A` record maps a name to an IPv4 address. An `AAAA` record
+   maps a name to an IPv6 address.
+4. **Why TCP as well as UDP?** DNS commonly uses UDP for ordinary queries, but
+   TCP can be used when a response is too large and truncated, or for operations
+   such as zone transfers. DNS is not limited to UDP.
+5. **What TCP provides:** TCP provides a reliable, ordered byte stream, using
+   acknowledgements and retransmissions. UDP itself does not guarantee delivery
+   or ordering.
+6. **TCP three-way handshake:** The client sends `SYN` to request a connection;
+   the server responds `SYN-ACK`, acknowledging the client's sequence and
+   proposing its own; the client sends `ACK` to acknowledge the server. The
+   connection is established.
+7. **Why failed ping is inconclusive:** `ping` uses ICMP, which a host or network
+   may block or rate-limit even while the service itself is available. Check the
+   service with an appropriate application-level request too.
+8. **Commands:** `dig` (or `nslookup`) showed DNS answers. `ss -tunap` showed
+   local sockets and connections; `netstat -tunap` is an alternative if
+   installed.
+
 ## 4. Optional stretch: telecom analogy
 
 Think about where name or service resolution happens in a mobile network you
